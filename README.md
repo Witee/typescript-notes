@@ -2,4 +2,4 @@
 
 学习 TypeScript 时的笔记
 
-### [数据类型](./docs/databypes.js)
+### [数据类型](./docs/databypes.md)

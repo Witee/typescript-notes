@@ -11,32 +11,35 @@ class Dog {
   name?: string;
   run() {}
 }
-console.log("Dog.prototype", Dog.prototype);
+console.log('Dog.prototype', Dog.prototype);
 
-let dog = new Dog("wangwang");
-console.log("instance dog", dog);
+let dog = new Dog('wangwang');
+console.log('instance dog', dog);
 ```
 
-js 和 ts 注意事项: 
-1. 类成员的属性都是实例属性, 而不是原型属性;
-    如下图 name 属性只在实例上
-2. 类成员的方法都是实例方法, 而不是原型方法
+注意事项:
 
-![class](imgs/class1.png)
+1. js 和 ts 中类成员的属性都是实例属性, 而不是原型属性;
+   如下图 name 属性只在实例上
+   ![class](imgs/class1.png)
+
+2. js 和 ts 中类成员的方法都是原型方法
 
 ts 中与 js 中类不同的是, 实例的属性必需有初始值或在构造函数中被初始化, 如:
+
 ```ts
 class Dog {
   constructor(name: string) {
     // this.name = name;  // 删除构造函数中的初始化
   }
 
-  name: string = "dog"; // 必须设置初始值
+  name: string = 'dog'; // 必须设置初始值
   run() {}
 }
 ```
 
 还可以声明为可选属性:
+
 ```ts
 class Dog {
   constructor(name: string) {
@@ -79,7 +82,6 @@ class Husky extends Dog {
 - readonly: 只读属性不能被更新, 一定要被初始化
 - static: 静态成员只能通过类名调用, 不能通过子类调用
 
-
 ```ts
 class Dog {
   // private constructor() 构造函数加上私有属性, 表示既不能实例化也不能被继承
@@ -97,10 +99,10 @@ class Dog {
 
   readonly legs: number = 4; // 只读属性不能被更新, 一定要被初始化
 
-  static food: string = "bones"; // 静态成员只能通过类名调用, 不能通过子类调用
+  static food: string = 'bones'; // 静态成员只能通过类名调用, 不能通过子类调用
 }
 
-let dog = new Dog("wangwang");
+let dog = new Dog('wangwang');
 
 // dog.pri() 实例不能调用私有成员
 
@@ -127,11 +129,117 @@ class Husky extends Dog {
 Husky.food; // 静态成员可以被继承
 ```
 
+## 抽象类
 
+只能被继承, 无法被实例化.
 
+```ts
+abstract class Animal {
+  // 直接实现某个方法
+  eat() {
+    console.log('animal eat');
+  }
 
+  // 定义抽象方法
+  abstract sleep(): void;
+}
 
+// let animal = new Animal(); // 无法被实例化
 
+class Dog extends Animal {
+  constructor(name: string) {
+    super();
+    this.name = name;
+  }
 
+  name: string;
+  run() {}
 
+  // 实现抽象方法
+  sleep() {
+    console.log('dog sleep');
+  }
+}
 
+let dog = new Dog('little dog');
+dog.eat(); // 可以直接调用抽象类中的方法
+dog.sleep();
+```
+
+## 抽象类 - 多态
+
+```ts
+class Cat extends Animal {
+  sleep() {
+    console.log('cat sleep');
+  }
+}
+
+let cat = new Cat();
+
+let animals: Animal[] = [dog, cat];
+animals.forEach((i) => {
+  // 通过多态特性访问不同方法
+  i.sleep();
+});
+```
+
+## 类与接口的关系
+
+```ts
+interface Human {
+  // new (name: string): void; // 接口不能约束类的构造函数
+  name: string;
+  eat(): void;
+}
+
+class Asian implements Human {
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  name: string;
+  // private name: string; // 接口只能约束类的公有成员
+  eat() {} // 接口必须实现接口的所有方法
+  sleep() {} // 可以有多余的方法
+}
+```
+
+接口可以继承多个接口
+
+```ts
+interface Human {
+  name: string;
+  eat(): void;
+}
+interface Man extends Human {
+  run(): void;
+}
+
+interface Child {
+  cry(): void;
+}
+
+interface Boy extends Man, Child {}
+
+let boy: Boy = {
+  name: '',
+  run() {},
+  eat() {},
+  cry() {},
+};
+```
+
+接口可以继承类
+
+```ts
+class Auto {
+  state = 1;
+}
+
+interface IAuto extends Auto {}
+
+class C implements IAuto {
+  state = 1;
+}
+```

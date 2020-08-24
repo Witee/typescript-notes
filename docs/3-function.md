@@ -3,6 +3,7 @@
 ## 函数定义
 
 #### 可选属性
+
 ```ts
 interface List {
   id: number;
@@ -12,6 +13,7 @@ interface List {
 ```
 
 #### 只读属性
+
 ```ts
 interface List {
   readonly id: number;
@@ -20,11 +22,12 @@ interface List {
 }
 ```
 
-#### 当不确实一个接口中有多少个接口时, 可以使用 "可索引类型接口"
+#### 当不确定一个接口中有多少个接口时, 可以使用 "可索引类型接口"
 
 支持 数字 或 字符串 类型的索引
 
 - 数字
+
 ```ts
 interface StringArray {
   [i: number]: string;
@@ -34,6 +37,7 @@ let chars: StringArray = ["a", "b", "c"];
 ```
 
 - 字符串 及 混合
+
 ```ts
 interface Names {
   [x: string]: string;
@@ -46,11 +50,10 @@ interface Names {
 
 #### 定义函数类型
 
-
 ```ts
 // 1. 实现函数时直接定义
 function add(x: number, y: number) {
-  return x + y
+  return x + y;
 }
 // 或只声明
 function add(x: number, y: number): number;
@@ -66,7 +69,8 @@ interface Add1 {
 // 4. 类型别名定义函数
 type Add2 = (x: number, y: number) => number;
 ```
-除第 1 种外, 其它3种并未实现函数
+
+除第 1 种外, 其它 3 种并未实现函数
 
 #### 混合接口定义类库
 
@@ -115,8 +119,8 @@ add6(1, undefined, 3);
 
 `y` 位于 必选参数 `z` 之前, 所以必须传递 `undefined` 才能使用默认值
 
-
 #### 函数可变参数
+
 ```ts
 function add7(x: number, ...rest: number[]) {
   return x + rest.reduce((pre, cur) => pre + cur);
@@ -142,7 +146,7 @@ function add8(...rest: any[]): any {
 
   if (typeof first === "number") return rest.reduce((pre, cur) => pre + cur);
 
-  return rest
+  return rest;
 }
 
 console.log(add8(1, 2, 3)); // 6
@@ -151,4 +155,3 @@ console.log(add8("a", "b", "c")); // abc
 ```
 
 函数重载需要在类型最宽泛的版本中实现重载, 所以 `add8(...rest: any[]): any`
-

@@ -6,8 +6,7 @@
 let bool: boolean = true;
 let num: number | undefined | null = 123;
 let str: string = 'abc';
-### str = 123
-```ts
+str = 123
 ```
 
 ### 数组

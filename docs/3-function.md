@@ -33,7 +33,7 @@ interface StringArray {
   [i: number]: string;
 }
 
-let chars: StringArray = ["a", "b", "c"];
+let chars: StringArray = ['a', 'b', 'c'];
 ```
 
 - 字符串 及 混合
@@ -83,7 +83,7 @@ interface Lib {
 
 function getLib() {
   let lib: Lib = (() => {}) as Lib;
-  lib.version = "1.0";
+  lib.version = '1.0';
   lib.doSomething = () => {};
 
   return lib;
@@ -142,15 +142,15 @@ function add8(...rest: string[]): string;
 function add8(...rest: any[]): any {
   let first = rest[0];
 
-  if (typeof first === "string") return rest.join("");
+  if (typeof first === 'string') return rest.join('');
 
-  if (typeof first === "number") return rest.reduce((pre, cur) => pre + cur);
+  if (typeof first === 'number') return rest.reduce((pre, cur) => pre + cur);
 
   return rest;
 }
 
 console.log(add8(1, 2, 3)); // 6
-console.log(add8("a", "b", "c")); // abc
+console.log(add8('a', 'b', 'c')); // abc
 // console.log(add8(true)); // No overload matches this call.
 ```
 

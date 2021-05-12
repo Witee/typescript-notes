@@ -13,7 +13,7 @@ interface Result {
 }
 
 function render(result: Result) {
-  result.data.forEach(value => {
+  result.data.forEach((value) => {
     console.log(value.id, value.name);
   });
 }
@@ -21,9 +21,9 @@ function render(result: Result) {
 // 增加 sex 可以通过类型检查
 let result = {
   data: [
-    { id: 1, name: "A", sex: "male" },
-    { id: 2, name: "B" }
-  ]
+    { id: 1, name: 'A', sex: 'male' },
+    { id: 2, name: 'B' },
+  ],
 };
 
 render(result);
@@ -34,9 +34,9 @@ render(result);
 ```ts
 render({
   data: [
-    { id: 1, name: "A", sex: "male" }, // sex: "male" 处会报错
-    { id: 2, name: "B" }
-  ]
+    { id: 1, name: 'A', sex: 'male' }, // sex: "male" 处会报错
+    { id: 2, name: 'B' },
+  ],
 });
 ```
 
@@ -48,17 +48,17 @@ render({
 ```ts
 render({
   data: [
-    { id: 1, name: "A", sex: "male" }, // sex: "male" 处会报错
-    { id: 2, name: "B" }
-  ]
+    { id: 1, name: 'A', sex: 'male' }, // sex: "male" 处会报错
+    { id: 2, name: 'B' },
+  ],
 } as Result);
 
 // 等价于, 但不推荐, 因为在 react 中有歧义
 render(<Result>{
   data: [
-    { id: 1, name: "A", sex: "male" },
-    { id: 2, name: "B" }
-  ]
+    { id: 1, name: 'A', sex: 'male' },
+    { id: 2, name: 'B' },
+  ],
 });
 ```
 
